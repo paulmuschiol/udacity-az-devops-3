@@ -25,7 +25,10 @@ stages:
         command: 'init'
 - stage: Build
   jobs:
-
+  - job: Build App
+    pool:
+      name: Hosted Ubuntu 1604
+    steps:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
