@@ -2,7 +2,7 @@ name: Azure Pipelines
 variables:
   python.version: '3.7.6'
 stages:
-- stage: Validate and prepare
+- stage: Prepare
   jobs:
   - job: Build
     pool:
@@ -25,7 +25,7 @@ stages:
         command: 'init'
 - stage: Build
   jobs:
-  - job: Build App
+  - job: Build
     pool:
       name: Hosted Ubuntu 1604
     steps:
