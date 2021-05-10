@@ -25,7 +25,7 @@ stages:
         command: 'init'
         environmentServiceName: 'udacity-az-devops-3-sc'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-        secureVarsFile: 'terraform.tfvars'
+        # secureVarsFile: 'terraform.tfvars'
         backendType: 'self-configured'
 - stage: Build
   jobs:
