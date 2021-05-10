@@ -27,6 +27,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
         # secureVarsFile: 'terraform.tfvars'
         backendType: 'self-configured'
+        runAzLogin: true
 - stage: Build
   jobs:
   - job: Build
