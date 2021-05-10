@@ -7,10 +7,10 @@ provider "azurerm" {
 }
 terraform {
   backend "azurerm" {
-    storage_account_name = ""
-    container_name       = ""
-    key                  = ""
-    access_key           = ""
+    resource_group_name = "udacity-tstate"
+    storage_account_name = "udacitytstatestoracc"
+    container_name       = "tstate"
+    key                  = "dev.terraform.tfstate"
   }
 }
 module "resource_group" {
@@ -51,4 +51,15 @@ module "publicip" {
   application_type = "${var.application_type}"
   resource_type    = "publicip"
   resource_group   = "${module.resource_group.resource_group_name}"
+}
+
+module "vm" {
+  source           = "../../modules/vm"
+  location         = "${var.location}"
+  application_type = "${var.application_type}"
+  resource_type    = "vm"
+  resource_group   = "${module.resource_group.resource_group_name}"
+  vm_size = "${var.vm_size}"
+  subnet_id = "${module.network.subnet_id_test}"
+  public_ip_id = "${module.publicip.public_ip_address_id}"
 }
