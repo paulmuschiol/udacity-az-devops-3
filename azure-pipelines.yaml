@@ -18,11 +18,15 @@ stages:
       displayName: install terraform
       inputs:
         terraformVersion: latest
-    - task: TerraformTaskV1@0
+    - task: TerraformCLI@0
       displayName: 'terraform init'
       inputs:
         provider: 'azurerm'
         command: 'init'
+        environmentServiceName: 'udacity-az-devops-3-sc'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
+        secureVarsFile: 'terraform.tfvars'
+        backendType: 'self-configured'
 - stage: Build
   jobs:
   - job: Build
