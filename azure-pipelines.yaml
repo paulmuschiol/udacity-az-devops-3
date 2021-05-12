@@ -52,6 +52,11 @@ stages:
         publishPlanResults: 'udacity-az-devops-3'
         commandOptions: '-var "pub_key=$(az_udacity_id_rsa_pub)" -out=terraform.tfplan -detailed-exitcode'
         secureVarsFile: terraform.tfvars
+        runAzLogin: 'true'
+
+    - bash: |
+        az account tenant list
+      displayName: Checks
 
     - task: TerraformCLI@0
       displayName: 'terraform apply'
