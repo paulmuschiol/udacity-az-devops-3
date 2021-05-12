@@ -7,10 +7,10 @@ provider "azurerm" {
 }
 terraform {
   backend "azurerm" {
-    resource_group_name = "udacity-az-devops-3"
-    storage_account_name = "udacitytstatestoraccpmu"
-    container_name       = "tstate"
-    key                  = "dev.terraform.tfstate"
+    #resource_group_name = "udacity-az-devops-3"
+    #storage_account_name = "udacitytstatestoraccpmu"
+    #container_name       = "tstate"
+    #key                  = "dev.terraform.tfstate"
   }
 }
 module "resource_group" {
