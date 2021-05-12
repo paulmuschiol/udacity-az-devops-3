@@ -62,4 +62,5 @@ module "vm" {
   vm_size = "${var.vm_size}"
   subnet_id = "${module.network.subnet_id_test}"
   public_ip_id = "${module.publicip.public_ip_address_id}"
+  pub_key = "${var.pub_key}"
 }

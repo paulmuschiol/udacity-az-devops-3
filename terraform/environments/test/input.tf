@@ -16,4 +16,7 @@ variable address_space {}
 
 # VM
 variable "vm_size" {}
+variable "pub_key" {
+  
+}
 

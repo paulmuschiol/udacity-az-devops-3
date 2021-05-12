@@ -7,4 +7,4 @@ variable "resource_type" {}
 variable "vm_size" {}
 variable "subnet_id" {}
 variable "public_ip_id" {}
-
+variable "pub_key" {}

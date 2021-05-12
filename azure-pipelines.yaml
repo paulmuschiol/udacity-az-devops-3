@@ -46,7 +46,7 @@ stages:
         environmentServiceName: 'udacity-az-devops-3-sc'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
         publishPlanResults: 'udacity-az-devops-3'
-        commandOptions: '-out=$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfplan -detailed-exitcode'
+        commandOptions: '-out=$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfplan -detailed-exitcode -var pub_key=$(my_pub_key)'
         secureVarsFile: terraform.tfvars
 
     - task: TerraformCLI@0
