@@ -32,11 +32,13 @@ stages:
         backendAzureRmStorageAccountName: '$(tf_storage_account_name)'
         backendAzureRmContainerName: '$(tf_container_name)'
         backendAzureRmKey: dev.terraform.tfstate
-      env:
-        TF_STATE_BLOB_ACCOUNT_NAME:   $(kv-tf-state-blob-account)
-        TF_STATE_BLOB_CONTAINER_NAME: $(kv-tf-state-blob-container)
-        TF_STATE_BLOB_FILE:           $(kv-tf-state-blob-file)
-        TF_STATE_BLOB_SAS_TOKEN:      $(kv-tf-state-sas-token)
+    - task: TerraformCLI@0
+      displayName: 'terraform plan'
+      inputs:
+        command: plan
+        environmentServiceName: 'udacity-az-devops-3-sc'
+        publishPlanResults: 'my_plan_name'
+
 - stage: Build
   jobs:
   - job: Build
