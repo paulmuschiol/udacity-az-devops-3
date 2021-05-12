@@ -42,7 +42,6 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
         publishPlanResults: 'udacity-az-devops-3'
         commandOptions: '-out=$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfplan -detailed-exitcode'
-        commandOptions: '-var secret=$(mySecretPipelineVar)'
 
     - task: TerraformCLI@0
       displayName: 'terraform apply'
