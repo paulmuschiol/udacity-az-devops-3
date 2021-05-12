@@ -32,15 +32,17 @@ stages:
         backendAzureRmStorageAccountName: '$(tf_storage_account_name)'
         backendAzureRmContainerName: '$(tf_container_name)'
         backendAzureRmKey: dev.terraform.tfstate
-        
+        secureVarsFile: terraform.tfvars
+
     - task: TerraformCLI@0
       displayName: 'terraform plan'
       inputs:
         command: plan
         environmentServiceName: 'udacity-az-devops-3-sc'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-        publishPlanResults: 'my_plan_name'
-        commandOptions: '-out=$(System.DefaultWorkingDirectory)/terraform.tfplan -detailed-exitcode'
+        publishPlanResults: 'udacity-az-devops-3'
+        commandOptions: '-out=$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfplan -detailed-exitcode'
+        commandOptions: '-var secret=$(mySecretPipelineVar)'
 
     - task: TerraformCLI@0
       displayName: 'terraform apply'
