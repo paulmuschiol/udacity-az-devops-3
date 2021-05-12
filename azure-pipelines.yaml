@@ -26,20 +26,11 @@ stages:
         command: 'init'
         environmentServiceName: 'udacity-az-devops-3-sc'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
-        # secureVarsFile: 'terraform.tfvars'
         backendType: 'azurerm'
-        backendServiceArm: 'udacity-az-devops-3-sc'
-        # create backend storage account if doesn't exist
-        ensureBackend: true
+        backendServiceArm: 'udacity-az-devops-3-tf'
         backendAzureRmResourceGroupName: '$(tf_resource_group_name)'
-        # azure location shortname of the backend resource group and storage account
-        backendAzureRmResourceGroupLocation: 'westeurope'
         backendAzureRmStorageAccountName: '$(tf_storage_account_name)'
-        # azure storage account sku, used when creating the storage account
-        backendAzureRmStorageAccountSku: 'Standard_LRS'
-        # azure blob container to store the state file
         backendAzureRmContainerName: '$(tf_container_name)'
-        # azure blob file name
         backendAzureRmKey: dev.terraform.tfstate
       env:
         TF_STATE_BLOB_ACCOUNT_NAME:   $(kv-tf-state-blob-account)
