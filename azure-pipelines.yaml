@@ -31,7 +31,7 @@ stages:
         backendAzureRmResourceGroupName: '$(tf_resource_group_name)'
         backendAzureRmStorageAccountName: '$(tf_storage_account_name)'
         backendAzureRmContainerName: '$(tf_container_name)'
-        backendAzureRmKey: dev.terraform.tfstate
+        backendAzureRmKey: test.terraform.tfstate
 
     - task: TerraformCLI@0
       displayName: 'terraform plan'
