@@ -22,7 +22,7 @@ resource "azurerm_linux_virtual_machine" "projectvm" {
   ]
   admin_ssh_key {
     username   = "adminuser"
-    public_key = file("~/.ssh/id_rsa.pub")
+    public_key = file("~/.ssh/id_az_udacity.pub")
   }
   os_disk {
     caching           = "ReadWrite"
