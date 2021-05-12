@@ -33,7 +33,7 @@ stages:
         environmentServiceName: 'udacity-az-devops-3-sc'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
         backendType: 'azurerm'
-        backendServiceArm: 'udacity-az-devops-3-tf'
+        backendServiceArm: 'udacity-az-devops-3-sc'
         backendAzureRmResourceGroupName: '$(tf_resource_group_name)'
         backendAzureRmStorageAccountName: '$(tf_storage_account_name)'
         backendAzureRmContainerName: '$(tf_container_name)'
