@@ -32,12 +32,23 @@ stages:
         backendAzureRmStorageAccountName: '$(tf_storage_account_name)'
         backendAzureRmContainerName: '$(tf_container_name)'
         backendAzureRmKey: dev.terraform.tfstate
+        
     - task: TerraformCLI@0
       displayName: 'terraform plan'
       inputs:
         command: plan
         environmentServiceName: 'udacity-az-devops-3-sc'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
         publishPlanResults: 'my_plan_name'
+        commandOptions: '-out=$(System.DefaultWorkingDirectory)/terraform.tfplan -detailed-exitcode'
+
+    - task: TerraformCLI@0
+      displayName: 'terraform apply'
+      condition: and(succeeded(), eq(variables['TERRAFORM_PLAN_HAS_CHANGES'], 'true'))
+      inputs:
+        command: apply
+        environmentServiceName: 'udacity-az-devops-3-sc'
+        commandOptions: '$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfplan'
 
 - stage: Build
   jobs:
