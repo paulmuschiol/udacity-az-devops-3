@@ -32,7 +32,6 @@ stages:
         backendAzureRmStorageAccountName: '$(tf_storage_account_name)'
         backendAzureRmContainerName: '$(tf_container_name)'
         backendAzureRmKey: dev.terraform.tfstate
-        secureVarsFile: terraform.tfvars
 
     - task: TerraformCLI@0
       displayName: 'terraform plan'
@@ -42,6 +41,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
         publishPlanResults: 'udacity-az-devops-3'
         commandOptions: '-out=$(System.DefaultWorkingDirectory)/terraform/environments/test/terraform.tfplan -detailed-exitcode'
+        secureVarsFile: terraform.tfvars
 
     - task: TerraformCLI@0
       displayName: 'terraform apply'
