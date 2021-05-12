@@ -15,10 +15,14 @@ stages:
         sshPublicKey: '$(az_udacity_id_rsa_pub)'
         sshKeySecureFile: 'az_udacity_id_rsa'
 
-    - task: Bash@3
+    - task: DownloadSecureFile@1
+      displayName: Download terraform.tfvars
       inputs:
-        targetType: 'inline'
-        script: 'ls -lah ~/.ssh/'
+        secureFile: 'terraform.tfvars' 
+
+    - bash: |
+        cp $(Agent.TempDirectory)/terraform.tfvars $(System.DefaultWorkingDirectory)/terraform/environments/test/
+      displayName: Copy terraform.tfvars to manifests
 
     - task: TerraformInstaller@0
       displayName: install terraform
