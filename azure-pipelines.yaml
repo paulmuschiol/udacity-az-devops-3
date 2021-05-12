@@ -57,6 +57,7 @@ stages:
         environmentServiceName: 'udacity-az-devops-3-tf'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test/'
         commandOptions: 'terraform.tfplan'
+        runAzLogin: true
 
 - stage: Build
   jobs:
