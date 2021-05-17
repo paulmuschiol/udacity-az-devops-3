@@ -15,16 +15,29 @@ resource "azurerm_network_security_group" "nsg" {
     destination_address_prefix = "*"
   }
   security_rule {
-        name                       = "SSH"
-        priority                   = 1001
+        name                       = "SSH_PWC"
+        priority                   = 300
         direction                  = "Inbound"
         access                     = "Allow"
         protocol                   = "Tcp"
         source_port_range          = "*"
         destination_port_range     = "22"
-        source_address_prefix      = "*"
+        source_address_prefixes      = ["195.234.12.0/24", "91.151.24.70"]
         destination_address_prefix = "*"
     }
+
+  security_rule {
+        name                       = "SSH_PWC"
+        priority                   = 300
+        direction                  = "Inbound"
+        access                     = "Allow"
+        protocol                   = "Tcp"
+        source_port_range          = "*"
+        destination_port_range     = "22"
+        source_address_prefixes      = ["139.18.244.0/24"]
+        destination_address_prefix = "*"
+    }
+
 }
 resource "azurerm_subnet_network_security_group_association" "test" {
     subnet_id                 = "${var.subnet_id}"
