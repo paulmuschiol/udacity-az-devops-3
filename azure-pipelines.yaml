@@ -131,16 +131,16 @@ stages:
               script: |
                 #! /bin/bash
                 
-                sudo apt install software-properties-common -y
+                sudo apt-get -q install software-properties-common -y
                 sudo add-apt-repository ppa:deadsnakes/ppa -y
-                sudo apt update
-                sudo apt-get upgrade -y
-                sudo apt install python3.7 -y
+                sudo apt -q update
+                sudo apt-get -q upgrade -y
+                sudo apt -q install python3.7 -y
                 sudo ln -sf python3.7 /usr/bin/python3
 
-                sudo apt-get install python3-pip -y
-                sudo apt-get install unzip -y
-                sudo apt-get install -y chromium-browser
+                sudo apt-get -q install python3-pip -y
+                sudo apt-get -q install unzip -y
+                sudo apt-get -q install -y chromium-browser
                 pip3 install --upgrade pip
 
                 # check versions
@@ -242,7 +242,7 @@ stages:
           - task: PublishPipelineArtifact@1
             displayName: Publish selenium logs
             inputs:
-              targetPath: '$(System.DefaultWorkingDirectory)/log_selenium/selenium-test.log'
+              targetPath: '$(System.DefaultWorkingDirectory)/selenium_files/log_selenium/selenium-test.log'
               artifactName: 'drop-selenium-logs'
     
 
