@@ -123,6 +123,49 @@ stages:
   #               export PATH=$PATH:some/path
 
 
-  # - stage: Test
-  #   jobs:
+- stage: Test
+  jobs:
+  - job: api_test
+    displayName: Test Postman (using Newman CLI)
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps: 
+    - task: NodeTool@0
+      displayName: Install Node 12
+      inputs:
+        versionSpec: '12.x'
+    - bash: |
+        pwd
+        npm install -g newman
+        newman --version
+        mkdir -p log_newman
+        ls -lah
+      displayName: Install Newman
+    - bash: |
+        newman run automatedtesting/postman/regression_test.postman_collection.json \
+                  -e automatedtesting/postman/starterAPIs_regression_test.postman_environment.json \
+                  --reporter-junit-export log_newman/regression-test-export.xml \
+                  --reporters cli,junit \
+                  --suppress-exit-code
+      displayName: Regression Test Suite (newman)
+    - bash: |
+        newman run automatedtesting/postman/validation_test.postman_collection.json \
+                  -e automatedtesting/postman/starterAPIs_validation_test.postman_environment.json \
+                  --reporters cli,junit \
+                  --reporter-junit-export log_newman/validation-test.xml \
+                  --suppress-exit-code
+      displayName: Validation Test Suite (newman)
+    - task: PublishPipelineArtifact@1
+      displayName: Publish API test logs
+      inputs:
+        targetPath: '$(System.DefaultWorkingDirectory)/log_newman'
+        artifactName: 'drop-newman-logs'
+    - task: PublishTestResults@2
+      displayName: 'Publish Regression and Validation test results'
+      inputs:
+        testRunner: 'JUnit'
+        searchFolder: '$(System.DefaultWorkingDirectory)/log_newman'
+        testResultsFiles: '*.xml'
+        mergeTestResults: true
+        testRunTitle: 'Newman Regression and Validation test results'
 
