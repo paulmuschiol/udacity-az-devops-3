@@ -244,7 +244,7 @@ stages:
               pwd
               ls -lah
 
-              cp selenium-tes.log /var/log/selenium/selenium-test-$(Build.BuildId).log
+              cp selenium-test.log /var/log/selenium/selenium-test-$(Build.BuildId).log
             displayName: Run selenium tests
           - task: PublishPipelineArtifact@1
             displayName: Publish selenium logs
