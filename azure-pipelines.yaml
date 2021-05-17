@@ -136,6 +136,7 @@ stages:
                 sudo apt update
                 sudo apt-get upgrade -y
                 sudo apt install python3.7 -y
+                sudo ln -sf python3.7 /usr/bin/python3
 
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
