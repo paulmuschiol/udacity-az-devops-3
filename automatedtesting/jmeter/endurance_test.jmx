@@ -168,7 +168,7 @@
       <hashTree/>
       <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Get Activity IDs" enabled="true">
         <stringProp name="TestPlan.comments">reads activity ids for request</stringProp>
-        <stringProp name="filename">/home/paul/short-time-data/udacity-az-devops-3/automatedtesting/jmeter/activities_list.csv</stringProp>
+        <stringProp name="filename">activities_list.csv</stringProp>
         <stringProp name="fileEncoding"></stringProp>
         <stringProp name="variableNames">activityId</stringProp>
         <boolProp name="ignoreFirstLine">true</boolProp>
@@ -180,7 +180,7 @@
       </CSVDataSet>
       <hashTree/>
       <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Create Acitvities" enabled="true">
-        <stringProp name="filename">/home/paul/short-time-data/udacity-az-devops-3/automatedtesting/jmeter/activities_create.csv</stringProp>
+        <stringProp name="filename">activities_create.csv</stringProp>
         <stringProp name="fileEncoding"></stringProp>
         <stringProp name="variableNames">crId,crTitle,crDue,crCompleted</stringProp>
         <boolProp name="ignoreFirstLine">true</boolProp>
