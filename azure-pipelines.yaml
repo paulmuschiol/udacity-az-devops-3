@@ -161,21 +161,17 @@ stages:
               targetType: 'inline'
               script: |
                 #! /bin/bash
-
-                cd $(Pipeline.Workspace)
-                ls -lah
-                cd drop-selenium
-                ls -lah
                 
                 rm -r selenium_files
                 mkdir selenium_files
                 cd selenium_files
-                cp $(Pipeline.Workspace)/drop-selenium/selenium-$(Build.BuildId).zip .
+                cp $(Pipeline.Workspace)/drop-selenium/$(Build.BuildId)-selenium.zip .
                 pwd
                 ls -lah
-                unzip -o selenium-$(Build.BuildId).zip
+                unzip -o $(Build.BuildId)-selenium.zip
                 pwd
                 ls -lah
+                mkdir log_selenium
 
 - stage: Test
   jobs:
@@ -222,4 +218,31 @@ stages:
         testResultsFiles: '*.xml'
         mergeTestResults: true
         testRunTitle: 'Newman Regression and Validation test results'
+
+  - deployment: test_vm
+    displayName: Selenium Test on Virtual Machine
+    environment:
+      name: 'TEST'
+      resourceType: VirtualMachine
+      tags: default
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - bash: |
+
+              cd selenium_files
+              # run python tests and write to file and output
+              python3 -u login.py 2>&1 | sudo tee -a log_selenium/selenium-test.log
+              
+              cd log_selenium
+              pwd
+              ls -lah
+            displayName: Run selenium tests
+          - task: PublishPipelineArtifact@1
+            displayName: Publish selenium logs
+            inputs:
+              targetPath: '$(System.DefaultWorkingDirectory)/log_selenium/selenium-test.log'
+              artifactName: 'drop-selenium-logs'
+    
 

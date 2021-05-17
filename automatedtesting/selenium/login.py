@@ -12,9 +12,9 @@ def timestamp():
 def login (user, password):
     print (timestamp() + 'Starting the browser...')
     # --uncomment when running in Azure DevOps.
-    # options = ChromeOptions()
-    # options.add_argument("--headless") 
-    # driver = webdriver.Chrome(options=options)
+    options = ChromeOptions()
+    options.add_argument("--headless") 
+    driver = webdriver.Chrome(options=options)
     driver = webdriver.Chrome()
     print (timestamp() + 'Browser started successfully. Navigating to the demo page to login.')
     driver.get('https://www.saucedemo.com/')
@@ -65,7 +65,7 @@ def remove_from_cart(driver):
         article_name = article.find_element_by_css_selector("div.inventory_item_name").text
 
         article.find_element_by_css_selector("div.pricebar > button").click()
-        
+
         print(timestamp() + 'Removed from cart {} item {}/{}'.format(article_name, number, num_articles))
 
 if __name__ == "__main__":
