@@ -176,7 +176,7 @@ stages:
                 ls -lah
                 mkdir log_selenium
                 #create analytics folder
-                mkdir -p /var/log/selenium
+                sudo mkdir -p /var/log/selenium
 
 - stage: Test
   jobs:
