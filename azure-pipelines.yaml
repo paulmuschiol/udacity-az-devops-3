@@ -68,35 +68,37 @@ stages:
   jobs:
   - job: Build
     pool:
-      name: Hosted Ubuntu 1604
+      vmImage: 'ubuntu-18.04'
     steps:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
-        rootFolderOrFile: 'automatedtesting/jmeter/fakerestapi'
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-# - stage: Deployment
-#   jobs:
-#   - deployment: FakeRestAPI
-#     pool:
-#       vmImage: 'Ubuntu-16.04'
-#     environment: 'TEST'
-#     strategy:
-#       runOnce:
-#         deploy:
-#           steps:
-#           - task: AzureWebApp@1
-#             displayName: 'Deploy Azure Web App'
-#             inputs:
-#               azureSubscription: '$(SUBSCRIPTION_ID)'
-#               appName: '$(APP_NAME)'
-#               appType: webApp
-#               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+
+- stage: Deployment
+  jobs:
+  - deployment: FakeRestAPI
+    pool:
+      vmImage: 'Ubuntu-18.04'
+    environment: 'TEST'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            inputs:
+              azureSubscription: '$(SUBSCRIPTION_ID)'
+              appName: '$(APP_NAME)'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+
   # - deployment: VMDeploy
   #   displayName: NAME
   #   environment:
@@ -120,4 +122,7 @@ stages:
   #               pip3 install selenium
   #               export PATH=$PATH:some/path
 
+
+  # - stage: Test
+  #   jobs:
 
