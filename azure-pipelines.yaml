@@ -269,8 +269,8 @@ stages:
                                       -l log_jmeter/performance_test_result.csv \
                                       -e -f -o log_jmeter/performance_test_html \
                                       -j log_jmeter/jmeter_performance_test.log \
-                                      --JnumberOfThreads=$NUMBER_OF_THREADS \
-                                      --Jurl=$HOSTNAME
+                                      -JnumberOfThreads=$NUMBER_OF_THREADS \
+                                      -Jurl=$HOSTNAME
       displayName: JMeter Performance test
       env:
         HOSTNAME: "$(APP_NAME).azurewebsites.net"
@@ -280,9 +280,9 @@ stages:
                                       -l log_jmeter/endurance_test_result.csv \
                                       -e -f -o log_jmeter/endurance_test_html \
                                       -j log_jmeter/jmeter_endurance_test.log \
-                                      --JnumberOfThreads=$NUMBER_OF_THREADS
-                                      --Jurl=$HOSTNAME \
-                                      --Jduration=$DURATION
+                                      -JnumberOfThreads=$NUMBER_OF_THREADS
+                                      -Jurl=$HOSTNAME \
+                                      -Jduration=$DURATION
       displayName: JMeter Endurance test
       env:
         HOSTNAME: "$(APP_NAME).azurewebsites.net"

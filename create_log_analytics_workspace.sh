@@ -1,0 +1,1 @@
+az deployment group create --resource-group $RESOURCE_GROUP --name $DEPLOYMENT_NAME --template-file log_analytics_workspace_azure.template.json
