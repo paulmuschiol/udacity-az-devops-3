@@ -128,11 +128,11 @@ stages:
               script: |
                 #! /bin/bash
                 
-                sudo apt install software-properties-common
-                sudo add-apt-repository ppa:deadsnakes/ppa
+                sudo apt install software-properties-common -y
+                sudo add-apt-repository ppa:deadsnakes/ppa -y
                 sudo apt update
                 sudo apt-get upgrade -y
-                sudo apt install python3.7
+                sudo apt install python3.7 -y
 
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
