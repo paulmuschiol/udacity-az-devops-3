@@ -84,6 +84,7 @@ stages:
 - stage: Deployment
   jobs:
   - deployment: FakeRestAPI
+    displayName: 'Deploy Web App'
     pool:
       vmImage: 'Ubuntu-18.04'
     environment: 'TEST'
@@ -120,7 +121,12 @@ stages:
               script: |
                 #! /bin/bash
                 
+                sudo apt install software-properties-common
+                sudo add-apt-repository ppa:deadsnakes/ppa
+                sudo apt update
                 sudo apt-get upgrade -y
+                sudo apt install python3.7
+
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
@@ -133,7 +139,7 @@ stages:
                 /usr/bin/chromium-browser --version
                 /usr/bin/chromedriver --version
                 python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
-
+                
                 # set environment variable
                 export PATH=$PATH:/usr/bin/chromium-browser
                 export PATH=$PATH:/usr/bin/chromedriver
