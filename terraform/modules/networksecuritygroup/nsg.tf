@@ -27,8 +27,8 @@ resource "azurerm_network_security_group" "nsg" {
     }
 
   security_rule {
-        name                       = "SSH_PWC"
-        priority                   = 300
+        name                       = "SSH_UL"
+        priority                   = 310
         direction                  = "Inbound"
         access                     = "Allow"
         protocol                   = "Tcp"
