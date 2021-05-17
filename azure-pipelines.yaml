@@ -175,6 +175,8 @@ stages:
                 pwd
                 ls -lah
                 mkdir log_selenium
+                #create analytics folder
+                mkdir -p /var/log/selenium
 
 - stage: Test
   jobs:
@@ -223,7 +225,7 @@ stages:
         testRunTitle: 'Newman Regression and Validation test results'
 
   - deployment: test_vm_selenium
-    displayName: Selenium Test on Virtual Machine
+    displayName: Test Selenium on Virtual Machine
     environment:
       name: 'TEST'
       resourceType: VirtualMachine
@@ -241,6 +243,8 @@ stages:
               cd log_selenium
               pwd
               ls -lah
+
+              cp selenium-tes.log /var/log/selenium/selenium-test-$(Build.BuildId).log
             displayName: Run selenium tests
           - task: PublishPipelineArtifact@1
             displayName: Publish selenium logs
@@ -280,7 +284,7 @@ stages:
                                       -l log_jmeter/endurance_test_result.csv \
                                       -e -f -o log_jmeter/endurance_test_html \
                                       -j log_jmeter/jmeter_endurance_test.log \
-                                      -JnumberOfThreads=$NUMBER_OF_THREADS
+                                      -JnumberOfThreads=$NUMBER_OF_THREADS \
                                       -Jurl=$HOSTNAME \
                                       -Jduration=$DURATION
       displayName: JMeter Endurance test

@@ -27,7 +27,6 @@ def login (user, password):
 
     # login test
     product_text = driver.find_element_by_css_selector("div[id='header_container'] > div.header_secondary_container > span").text
-    print(product_text)
     assert "PRODUCTS" in product_text 
     
     print(timestamp() + 'Succesfull login in with {} {}'.format(user, password))
