@@ -119,7 +119,7 @@ stages:
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
-                python3 -m pip install --upgrade pip
+                python3 -m pip3 install --upgrade pip3
 
                 # check versions
                 pip3 install selenium
