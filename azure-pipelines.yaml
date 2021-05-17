@@ -93,6 +93,7 @@ stages:
       artifact: drop-selenium
 
 - stage: Deployment
+  dependsOn: Build
   jobs:
   - deployment: FakeRestAPI
     displayName: 'Deploy Web App'
@@ -121,6 +122,8 @@ stages:
       runOnce:
         deploy:
           steps:
+          - download: current
+            artifact: drop-selenium
           - task: Bash@3
             displayName: Install Dependencies
             inputs:
@@ -157,6 +160,11 @@ stages:
               targetType: 'inline'
               script: |
                 #! /bin/bash
+
+                cd $(Pipeline.Workspace)
+                ls -lah
+                cd drop-selenium
+                ls -lah
                 
                 rm -r selenium_files
                 mkdir selenium_files
