@@ -1,6 +1,7 @@
 name: Azure Pipelines
 variables:
   python.version: '3.7.6'
+  duration: 1
 stages:
 - stage: Prepare
   jobs:
@@ -246,5 +247,69 @@ stages:
             inputs:
               targetPath: '$(System.DefaultWorkingDirectory)/selenium_files/log_selenium/selenium-test.log'
               artifactName: 'drop-selenium-logs'
+
+  - job: test_jmeter
+    displayName: Test JMeter Performance and Endurance
+    pool:
+      vmImage: 'ubuntu-18.04'
+    steps:
+    - bash: |
+        sudo apt-get update
+        sudo apt-get install openjdk-11-jre-headless -y
+        wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-5.4.1.tgz -O jmeter.tgz
+        tar xzvf jmeter.tgz
+        apache-jmeter-5.4.1/bin/jmeter --version
+      displayName: Install JMeter
+    - bash: |
+        # create log directory
+        mkdir log_jmeter
+      displayName: Prepare JMeter Log Dir
+    - bash: |
+        apache-jmeter-5.4.1/bin/jmeter -n -t automatedtesting/jmeter/performance_test.jmx \
+                                      -l log_jmeter/performance_test_result.csv \
+                                      -e -f -o log_jmeter/performance_test_html \
+                                      -j log_jmeter/jmeter_performance_test.log \
+                                      --JnumberOfThreads=$NUMBER_OF_THREADS \
+                                      --Jurl=$HOSTNAME
+      displayName: JMeter Performance test
+      env:
+        HOSTNAME: "$(APP_NAME).azurewebsites.net"
+        NUMBER_OF_THREADS: 1
+    - bash: |
+        apache-jmeter-5.4.1/bin/jmeter -n -t automatedtesting/jmeter/endurance_test.jmx \
+                                      -l log_jmeter/endurance_test_result.csv \
+                                      -e -f -o log_jmeter/endurance_test_html \
+                                      -j log_jmeter/jmeter_endurance_test.log \
+                                      --JnumberOfThreads=$NUMBER_OF_THREADS
+                                      --Jurl=$HOSTNAME \
+                                      --Jduration=$DURATION
+      displayName: JMeter Endurance test
+      env:
+        HOSTNAME: "$(APP_NAME).azurewebsites.net"
+        NUMBER_OF_THREADS: 1
+        DURATION: $(duration)
+    - task: ArchiveFiles@2
+      displayName: Archive JMeter HTML report (performance test)
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/log_jmeter/performance_test_html'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(System.DefaultWorkingDirectory)/log_jmeter/performance_test_html-$(Build.BuildId).zip'
+    - task: ArchiveFiles@2
+      displayName: Archive JMeter HTML report (endurance test)
+      inputs:
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/log_jmeter/endurance_test_html'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(System.DefaultWorkingDirectory)/log_jmeter/endurance_test_html-$(Build.BuildId).zip'
+    - bash: |
+        rm -rf log_jmeter/performance_test_html
+        rm -rf log_jmeter/endurance_test_html
+      displayName: Delete HTML reports for further publishing
+    - task: PublishPipelineArtifact@1
+      displayName: Publish JMeter logs (non HTML)
+      inputs:
+        targetPath: '$(System.DefaultWorkingDirectory)/log_jmeter'
+        artifactName: 'drop-jmeter-logs'
     
 
