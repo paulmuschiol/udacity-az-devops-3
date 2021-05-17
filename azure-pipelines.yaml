@@ -137,16 +137,17 @@ stages:
                 sudo apt-get -q upgrade -y
                 sudo apt -q install python3.7 -y
                 sudo ln -sf python3.7 /usr/bin/python3
+                sudo ln -sf /usr/bin/pip3 /home/adminuser/.local/bin/pip3
 
                 sudo apt-get -q install python3-pip -y
                 sudo apt-get -q install unzip -y
                 sudo apt-get -q install -y chromium-browser
-                pip3 install --upgrade pip
+                pip install --upgrade pip
 
                 # check versions
-                pip3 install selenium
+                pip install selenium
                 python3 -V
-                pip3 -V
+                pip -V
                 /usr/bin/chromium-browser --version
                 /usr/bin/chromedriver --version
                 python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
@@ -175,7 +176,7 @@ stages:
 
 - stage: Test
   jobs:
-  - job: api_test
+  - job: test_api_newman
     displayName: Test Postman (using Newman CLI)
     pool:
       vmImage: 'ubuntu-18.04'
@@ -219,7 +220,7 @@ stages:
         mergeTestResults: true
         testRunTitle: 'Newman Regression and Validation test results'
 
-  - deployment: test_vm
+  - deployment: test_vm_selenium
     displayName: Selenium Test on Virtual Machine
     environment:
       name: 'TEST'
