@@ -14,12 +14,18 @@ Please fork the repository and integrate it into Azure DevOps. Please setup the 
 
 4. Create a service principal `udacity-az-devops-3-sc` that can access the storage account in Azure DevOps. For details please refer to [Create Pipeline Service Principal](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/connect-to-azure?view=azure-devops).
 
-5. Run the Prepare stage of the pipeline to create the resources with Terraform. This brings up all the resources defined for the environment.
+5. Run the Prepare stage of the pipeline to create the resources with Terraform. This brings up all the resources defined for the environment. ![alt text](img/terraform_plan.png) ![alt text](img/terraform_apply.png)
 
 6. Create an environment in Azure DevOps named `TEST`. Please register the VM created by terraform to it and set a tag `default` to it. For details please follow the instructions here [Setup Envitronment](https://docs.microsoft.com/en-us/azure/devops/pipelines/ecosystems/deploy-linux-vm?view=azure-devops&tabs=java). You can ssh into the VM using the private key created earlier.
 ![alt text](img/environment.png)
 
 ### CI Testing
+
+#### API Testing Postman
+
+#### Performance Testing
+
+#### UI Testing Selenium
 
 
 ### Monitoring
@@ -28,6 +34,6 @@ Please fork the repository and integrate it into Azure DevOps. Please setup the 
 
 2. Create a Azure log analytics workspace. You can do this in Azure Portal or using the provided script. You can find the shell template from the micorsoft page already here. First source [udacity-az-devops-3-pmu-appservice.env](udacity-az-devops-3-pmu-appservice.env), then execute the shell file [create_log_analytics_workspace.sh](create_log_analytics_workspace.sh). Please refer for further details to the offical Microsoft documentation [Azure Log Analytics Workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/logs/quick-create-workspace). ![alt text](img/log_workspace.png)
 
-3. Link your VM with your log workspace. This can be done in agents management section. Just copy the registration command and execute it directly on the VM. ![alt text](img/register_vm.png)
+3. Link your VM with your log workspace. This can be done in agents management section. Just copy the registration command and execute it directly on the VM. ![alt text](img/register_vm.png).
 
-4. Go to the advanced settings section of your log workspace. Please configure here the selenium logs to be retrieved from the VM. The files are stored on the VM under `/var/log/selenium` and are separated by new line. ![alt text](img/log_advanced.png)
+4. Go to the advanced settings section of your log workspace. Please configure here the selenium logs to be retrieved from the VM. The files are stored on the VM under `/var/log/selenium` and are separated by new line. ![alt text](img/log_advanced.png). You should now see the logs written by selenium in `/var/log/selenium/*` directly in log analytics and query them. [Custom Data Log](https://docs.microsoft.com/en-us/azure/azure-monitor/agents/data-sources-custom-logs) ![alt text](img/selenium_log.png)
