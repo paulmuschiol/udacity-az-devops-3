@@ -13,7 +13,9 @@ def login (user, password):
     print (timestamp() + 'Starting the browser...')
     # --uncomment when running in Azure DevOps.
     options = ChromeOptions()
-    options.add_argument("--headless") 
+    options.add_argument("--headless")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--no-sandbox")
     driver = webdriver.Chrome(options=options)
     #driver = webdriver.Chrome()
     print (timestamp() + 'Browser started successfully. Navigating to the demo page to login.')

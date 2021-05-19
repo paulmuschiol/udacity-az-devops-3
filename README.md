@@ -23,9 +23,15 @@ Please fork the repository and integrate it into Azure DevOps. Please setup the 
 
 #### API Testing Postman
 
+The Postman regression and validation testing scripts can be found in [automatedtesting/postman/](automatedtesting/postman/). They perform tests against the dummy API `http://dummy.restapiexample.com`. They start automatically within the pipeline in the test step. ![alt text ](img/postman_overview.png) ![alt text ](img/postman_detail.png)
+
+Logs get stored in a pipeline artifact that can be downloaded. Please be aware that it is unlikely that all tests pass as the API is highly unstable and often return just a 429 error. ![alt text ](img/postman_artifact.png)
+
 #### Performance Testing
 
 #### UI Testing Selenium
+
+The UI testing is performed on the provided VM. It logs in, adds all items to the cart and then removed them. ![img/selenium_log.png]
 
 
 ### Monitoring
