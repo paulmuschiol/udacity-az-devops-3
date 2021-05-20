@@ -1,7 +1,7 @@
 name: Azure Pipelines
 variables:
   python.version: '3.7.6'
-  duration: 10
+  duration: 5
 stages:
 - stage: Prepare
   jobs:
@@ -285,7 +285,7 @@ stages:
       displayName: JMeter Performance test
       env:
         HOSTNAME: "$(APP_NAME).azurewebsites.net"
-        NUMBER_OF_THREADS: 20
+        NUMBER_OF_THREADS: 2
     - bash: |
         apache-jmeter-5.4.1/bin/jmeter -n -t automatedtesting/jmeter/endurance_test.jmx \
                                       -l log_jmeter/endurance_test_result.csv \

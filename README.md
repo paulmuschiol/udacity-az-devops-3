@@ -28,6 +28,7 @@ The Postman regression and validation testing scripts can be found in [automated
 Logs get stored in a pipeline artifact that can be downloaded. Please be aware that it is unlikely that all tests pass as the API is highly unstable and often return just a 429 error. ![alt text ](img/postman_artifact.png)
 
 #### Performance Testing
+For performance testing two jmeter test suites are executed. The endurance test suite puts consistent load on the app and the performance test suite spikes by sending lot of request same time. The test suites have parameters that can be passed by command line (e.g. `JnumberOfThreads`).
 
 #### UI Testing Selenium
 
