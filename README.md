@@ -1,7 +1,8 @@
 # Udacity Azure DevOps
 
 ## Ensuring Quality Releases
-Please fork the repository and integrate it into Azure DevOps. Please setup the standard pipeline [azure-pipelines.yaml](azure-pipelines.yaml) to proceed with any further steps.
+
+Please fork the repository and integrate it into Azure DevOps. Please setup the standard pipeline [azure-pipelines.yaml](azure-pipelines.yaml) to proceed with any further steps. The overall executed pipeline after all steps should look like below. Please be aware that it is unlikely that all tests pass as the API is highly unstable and often return just a 429 error. This is the reason for the low amount of passed tests (executing them individually in postman with at least 5min between them they work fine). ![alt et](img/pipeline.png)
 
 ### Infrastructure Setup
 
@@ -23,19 +24,19 @@ Please fork the repository and integrate it into Azure DevOps. Please setup the 
 
 #### API Testing Postman
 
-The Postman regression and validation testing scripts can be found in [automatedtesting/postman/](automatedtesting/postman/). They perform tests against the dummy API `http://dummy.restapiexample.com`. They start automatically within the pipeline in the test step. ![alt text ](img/postman_overview.png) ![alt text ](img/postman_detail.png)
+The Postman regression and validation testing scripts can be found in [automatedtesting/postman/](automatedtesting/postman/). They perform tests against the dummy API `http://dummy.restapiexample.com`. They start automatically within the pipeline in the test step. For details please refer to the official Newman documentation. ![alt text ](img/postman_overview.png) ![alt text ](img/postman_detail.png)
 
 Logs get stored in a pipeline artifact that can be downloaded. Please be aware that it is unlikely that all tests pass as the API is highly unstable and often return just a 429 error. ![alt text ](img/postman_artifact.png)
 
 #### Performance Testing
-For performance testing two jmeter test suites are executed. The endurance test suite puts consistent load on the app and the performance test suite spikes by sending lot of request same time. The test suites have parameters that can be passed by command line (e.g. `JnumberOfThreads`).
+
+For performance testing two jmeter test suites are executed. The endurance test suite puts consistent load on the app and the performance test suite spikes by sending lot of request same time. The test suites have parameters that can be passed by command line (e.g. `JnumberOfThreads`). For details please refer to the official jmeter documentation. The results as well as the html reports gets uploaded as pipeline artifacts. Please find an example here: [img/drop-jmeter-log.zip](img/drop-jmeter-logs.zip). Additionally the jmeter tests obviously trigger the configured alert rule. Please see the email and the metrics. ![alt test](img/jmeter_email.png) ![alt text](img/jmeter_metrics.png)
 
 #### UI Testing Selenium
 
 The UI testing is performed on the provided VM by running a python script. The python script gets moved to the VM as artifact beforehand. It logs in, adds all items to the cart and then removed them. ![alt text](img/selnium_pipeline.png)
 The data can be consumed by log analytics as well.
 ![alttext](img/selenium_log.png)
-
 
 ### Monitoring
 
