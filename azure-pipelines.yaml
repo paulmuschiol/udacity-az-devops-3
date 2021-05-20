@@ -1,7 +1,7 @@
 name: Azure Pipelines
 variables:
   python.version: '3.7.6'
-  duration: 1
+  duration: 10
 stages:
 - stage: Prepare
   jobs:
@@ -244,7 +244,7 @@ stages:
               chromium-browser --version
               chromedriver --version
               python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
-              
+
               python3 -u login.py 2>&1 | sudo tee -a log_selenium/selenium-test.log
               
               cd log_selenium
@@ -285,7 +285,7 @@ stages:
       displayName: JMeter Performance test
       env:
         HOSTNAME: "$(APP_NAME).azurewebsites.net"
-        NUMBER_OF_THREADS: 1
+        NUMBER_OF_THREADS: 20
     - bash: |
         apache-jmeter-5.4.1/bin/jmeter -n -t automatedtesting/jmeter/endurance_test.jmx \
                                       -l log_jmeter/endurance_test_result.csv \
@@ -297,7 +297,7 @@ stages:
       displayName: JMeter Endurance test
       env:
         HOSTNAME: "$(APP_NAME).azurewebsites.net"
-        NUMBER_OF_THREADS: 1
+        NUMBER_OF_THREADS: 2
         DURATION: $(duration)
     - task: ArchiveFiles@2
       displayName: Archive JMeter HTML report (performance test)

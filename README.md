@@ -31,7 +31,9 @@ Logs get stored in a pipeline artifact that can be downloaded. Please be aware t
 
 #### UI Testing Selenium
 
-The UI testing is performed on the provided VM. It logs in, adds all items to the cart and then removed them. ![img/selenium_log.png]
+The UI testing is performed on the provided VM by running a python script. The python script gets moved to the VM as artifact beforehand. It logs in, adds all items to the cart and then removed them. ![alt text](img/selnium_pipeline.png)
+The data can be consumed by log analytics as well.
+![alttext](img/selenium_log.png)
 
 
 ### Monitoring
