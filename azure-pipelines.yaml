@@ -237,7 +237,14 @@ stages:
           - bash: |
 
               cd selenium_files
-              # run python tests and write to file and output
+              pwd
+              ls -lah
+              python3 -V
+              pip -V
+              chromium-browser --version
+              chromedriver --version
+              python3 -c "import selenium; print('Selenium Version:', selenium.__version__)"
+              
               python3 -u login.py 2>&1 | sudo tee -a log_selenium/selenium-test.log
               
               cd log_selenium
