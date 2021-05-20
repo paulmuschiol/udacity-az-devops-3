@@ -30,11 +30,11 @@ Logs get stored in a pipeline artifact that can be downloaded. Please be aware t
 
 #### Performance Testing
 
-For performance testing two jmeter test suites are executed. The endurance test suite puts consistent load on the app and the performance test suite spikes by sending lot of request same time. The test suites have parameters that can be passed by command line (e.g. `JnumberOfThreads`). For details please refer to the official jmeter documentation. The results as well as the html reports gets uploaded as pipeline artifacts. Please find an example here: [img/drop-jmeter-log.zip](img/drop-jmeter-logs.zip). Additionally the jmeter tests obviously trigger the configured alert rule. Please see the email and the metrics. ![alt test](img/jmeter_email.png) ![alt text](img/jmeter_metrics.png)
+For performance testing two jmeter test suites are executed. The test suites can be found in [automatedtesting/jmeter/](automatedtesting/jmeter/). The endurance test suite puts consistent load on the app and the performance test suite spikes by sending lot of request same time. The test suites have parameters that can be passed by command line (e.g. `JnumberOfThreads`). For details please refer to the official jmeter documentation. The results as well as the html reports gets uploaded as pipeline artifacts. Please find an example here: [img/drop-jmeter-log.zip](img/drop-jmeter-logs.zip). Additionally the jmeter tests obviously trigger the configured alert rule. Please see the email and the metrics. ![alt test](img/jmeter_email.png) ![alt text](img/jmeter_metrics.png)
 
 #### UI Testing Selenium
 
-The UI testing is performed on the provided VM by running a python script. The python script gets moved to the VM as artifact beforehand. It logs in, adds all items to the cart and then removed them. ![alt text](img/selnium_pipeline.png)
+The UI testing is performed on the provided VM by running a python script. The test script can be found in [automatedtesting/selenium/](automatedtesting/selenium/). The python script gets moved to the VM as artifact beforehand. It logs in, adds all items to the cart and then removed them. ![alt text](img/selnium_pipeline.png)
 The data can be consumed by log analytics as well.
 ![alttext](img/selenium_log.png)
 
